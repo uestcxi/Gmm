@@ -1,0 +1,37 @@
+Reference:
+1.Zoran Zivkovic and Ferdinand van der Heijden. Efficient adaptive density estimation per image pixel for the task of background subtraction.Pattern recognition letters, 27(7):773–780, 2006.
+
+2.Zoran Zivkovic. Improved adaptive gaussian mixture model for background subtraction. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on, volume 2, pages 28–31. IEEE, 2004.
+
+
+Two class of OpenCV:
+BackgroundSubtractorMOG、BackgroundSubtractorMOG2
+
+
+How to get the instances of the two class:
+
+1.BackgroundSubtractorMOG bg_model(history ,nmixtures ,backgroundRatio ,noiseSigma);
+history – Length of the history.
+nmixtures – Number of Gaussian mixtures.
+backgroundRatio – Background ratio.
+noiseSigma – Noise strength (standard deviation of the brightness or each color channel). 0 means some automatic value.
+
+2.Ptr<BackgroundSubtractorMOG2> bg_model=createBackgroundSubtractorMOG2(20,16,true);
+history – Length of the history.
+varThreshold – Threshold on the squared Mahalanobis distance between the pixel and the model to decide whether a pixel is well described by the background model. This parameter does not affect the background update.
+detectShadows – If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false.
+
+
+How to detect&segment:
+bg_model->apply(img, fgmask, learningRate);
+img - inputImage
+fgmask - foreground mask
+learningRate - learning rate
+
+
+More details:
+http://docs.opencv.org/3.1.0/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html#gsc.tab=0
+
+http://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html?highlight=backgroundsubtractormog2#double BackgroundSubtractorMOG2::getBackgroundRatio() const
+
+opencv->samples->segment_objects.cpp
